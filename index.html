@@ -2988,17 +2988,9 @@
             const SUCCESS_DESC = 'Tu respuesta quedó registrada correctamente. ✨';
             const AUTO_CLOSE_MS = 6500;
 
-            // Mensajes que Elementor suele mostrar cuando falla la acción Webhook
-            const ERROR_PATTERNS = [
-                /Tu envío ha fallado debido a un error/i,
-                /Webhook\s*error/i,
-                /There was an error/i,
-                /Submission failed/i
-            ];
+        
 
-            function matchesError(text) {
-                return ERROR_PATTERNS.some(rx => rx.test(text || ''));
-            }
+    
 
             /*** Toast fallback ***/
             function ensureToast() {
@@ -3058,13 +3050,7 @@
                 const msg = formEl.querySelector('.elementor-message');
                 if (!msg) return;
 
-                const text = (msg.textContent || '').trim();
-                if (!matchesError(text)) return;
-
-                // Oculta el mensaje de error para que no asuste
-                msg.style.display = 'none';
-                msg.classList.remove('elementor-message-danger');
-
+          
                 // Muestra popup tipo app; si no se puede, muestra toast grande
                 const opened = openElementorPopup();
                 if (!opened) {
