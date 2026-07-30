@@ -3089,5 +3089,45 @@
             }
         })();
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyZCjzxTWsezmwBAglAcV0J_NQJF0msiw_emNIB2q5Bn8s2fxcctqYtU7Q54ydCi6sL/exec";
+
+    const form = document.querySelector("form.elementor-form");
+
+    if (!form) return;
+
+    form.addEventListener("submit", function () {
+
+        setTimeout(function () {
+
+            const datos = {
+                respondedor_nombre: document.getElementById("form-field-respondedor_nombre")?.value || "",
+                asistencia_select: document.getElementById("form-field-asistencia_select")?.value || "",
+                nombre_2: document.getElementById("form-field-nombre_2")?.value || "",
+                nombre_3: document.getElementById("form-field-nombre_3")?.value || "",
+                nombre_4: document.getElementById("form-field-nombre_4")?.value || "",
+                nombre_5: document.getElementById("form-field-nombre_5")?.value || "",
+                restricciones: document.getElementById("form-field-field_51b829f")?.value || "",
+                mensaje: document.getElementById("form-field-message")?.value || "",
+                nombres_acumulados: document.getElementById("form-field-nombres_acumulados")?.value || "",
+                pases_asignados: document.getElementById("form-field-pases_asignados")?.value || "",
+                total_confirmados: document.getElementById("form-field-asistencia_select")?.value || "0"
+            };
+
+           fetch(WEBAPP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify(datos)
+});
+       
+
+        }, 500);
+
+    });
+
+});
+</script>
 </body>
 </html>
