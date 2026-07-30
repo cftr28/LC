@@ -2978,6 +2978,18 @@
             background: rgba(255, 255, 255, .14);
             color: #fff;
         }
+        .elementor-message,
+    .elementor-message-danger,
+    .elementor-message-success,
+    .elementor-message-invalid,
+    .elementor-errors-wrapper,
+    .elementor-form-help-inline {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
     </style>
 
     <script>
@@ -3045,26 +3057,9 @@
                 return false;
             }
 
-            /*** Main handler ***/
-            function convertErrorToSuccess(formEl) {
-                const msg = formEl.querySelector('.elementor-message');
-                if (!msg) return;
+      
 
-          
-                // Muestra popup tipo app; si no se puede, muestra toast grande
-                const opened = openElementorPopup();
-                if (!opened) {
-                    showToast(SUCCESS_TITLE, SUCCESS_DESC);
-                }
-            }
 
-            function attachToForm(formEl) {
-                // Observa cambios: Elementor inserta/actualiza mensajes después del submit AJAX
-                const obs = new MutationObserver(() => convertErrorToSuccess(formEl));
-                obs.observe(formEl, { childList: true, subtree: true });
-                // Por si el mensaje ya está
-                convertErrorToSuccess(formEl);
-            }
             function boot() {
                 document.querySelectorAll('form.elementor-form').forEach(attachToForm);
             }
@@ -3114,6 +3109,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+            const form = document.querySelector('form.elementor-form');
+            if (!form) return;
+
+            // Desactiva validaciones nativas del navegador al enviar
+            form.setAttribute('novalidate', 'novalidate');
+
+            // Intercepta el envío del formulario para anular mensajes visuales
+            form.addEventListener('submit', function (e) {
+                // Si deseas que el formulario igual se envíe a la base de datos pero sin mostrar avisos, 
+                // puedes comentar la siguiente línea (e.preventDefault()). 
+                // De lo contrario, esto frena cualquier recarga o cartel molesto:
+                
+                // e.preventDefault(); 
+                
+                // Forzamos a ocultar las cajas de mensaje de Elementor por si aparecen dinámicamente
+                setTimeout(() => {
+                    document.querySelectorAll('.elementor-message').forEach(msg => {
+                        msg.style.display = 'none';
+                        msg.style.visibility = 'hidden';
+                    });
+                }, 100);
+            });
+        }, 800);
+    });
 </script>
 </body>
 </html>
