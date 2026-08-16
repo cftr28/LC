@@ -2632,14 +2632,29 @@
                                         class="elementor-field elementor-size-sm  elementor-field-textual"
                                         value="kippis_rsvp_burgundy">
                                 </div>
-                                <div
-                                    class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
-                                    <button class="elementor-button elementor-size-sm" type="submit">
-                                        <span class="elementor-button-content-wrapper">
-                                            <span class="elementor-button-text">Enviar confirmación</span>
-                                        </span>
-                                    </button>
-                                </div>
+                               <div 
+    class="elementor-field-group elementor-column elementor-field-type-submit elementor-col-100 e-form__buttons">
+
+    <button 
+        class="elementor-button elementor-size-sm" 
+        type="submit"
+        onclick="
+            setTimeout(function() {
+                alert('Gracias, se ha enviado tu confirmación');
+            }, 1000);
+        ">
+
+        <span class="elementor-button-content-wrapper">
+
+            <span class="elementor-button-text">
+                Enviar confirmación
+            </span>
+
+        </span>
+
+    </button>
+
+</div>
                             </div>
                         </form>
                     </div>
@@ -3136,6 +3151,20 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }, 800);
     });
+</script>
+<script>
+jQuery(function($) {
+
+    $(document).on('submit_success', 'form.elementor-form', function() {
+
+        showToast(
+            'Gracias',
+            'Tu confirmación ha sido enviada'
+        );
+
+    });
+
+});
 </script>
 </body>
 </html>
